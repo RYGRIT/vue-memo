@@ -11,12 +11,10 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,mjs,vue}": [
-      "eslint --fix --ignore-path ./.eslintignore",
-      "git add ."
+      "eslint --fix --ignore-path ./.eslintignore"
     ],
     "*.{ts,tsx,js,jsx,cjs,mjs,vue,css,scss,less,md}": [
-      "prettier --write --ignore-path ./.prettierignore",
-      "git add ."
+      "prettier --write"
     ]
   },
   "dependencies": {
