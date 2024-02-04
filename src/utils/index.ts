@@ -19,3 +19,13 @@ export const localSetItem = (key: string, data: unknown) => {
 export const genId = (): number => {
   return Math.floor(Math.random() * 939874)
 }
+
+// 模拟 HTTP 请求
+export const ImitateHttp = (
+  fun: (s: (value: unknown) => void, f: (value: unknown) => void) => void,
+  timer = 1000
+) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => fun(resolve, reject), timer)
+  })
+}

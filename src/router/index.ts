@@ -1,3 +1,4 @@
+import { localGetItem } from './../utils/index'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -9,4 +10,12 @@ const router = createRouter({
   ]
 })
 
+// 路由守卫
+router.beforeEach(async to => {
+  const loginUser = localGetItem('login_user')
+  // 登录拦截
+  if (!loginUser && to.path !== '/login') {
+    return '/login'
+  }
+})
 export default router

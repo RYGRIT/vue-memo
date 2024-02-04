@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { userStore } from '@/store'
+import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
 
 defineOptions({
   name: 'LoginView'
@@ -12,7 +15,34 @@ const form = ref({
   phone: ''
 })
 
-const submitForm = () => {}
+const router = useRouter()
+const { register, login } = userStore()
+const submitForm = async () => {
+  if (isLogin.value) {
+    try {
+      // 登录
+      let res = await login(form.value)
+      if (res === 'ok') {
+        router.push('/')
+        return ElMessage.success('登录成功')
+      } else {
+        return ElMessage.error('登录失败')
+      }
+    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return ElMessage.error((err as any).toString())
+    }
+  } else {
+    // 注册
+    let res = await register(form.value)
+    if (res === 'ok') {
+      router.push('/login')
+      return ElMessage.success('注册成功')
+    } else {
+      return ElMessage.error('注册失败')
+    }
+  }
+}
 </script>
 
 <template>
